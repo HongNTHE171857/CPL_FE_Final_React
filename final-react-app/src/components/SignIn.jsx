@@ -1,4 +1,5 @@
 import React from 'react';
+<<<<<<< Updated upstream
 import Header from './Header';
 import Footer from './Footer';
 const SignIn = () => {
@@ -28,6 +29,13 @@ const SignIn = () => {
                                             </div>
                                             </div>
             <Footer/>                        
+=======
+
+const SignIn = () => {
+    return (
+        <div>
+            SI
+>>>>>>> Stashed changes
         </div>
     );
 };

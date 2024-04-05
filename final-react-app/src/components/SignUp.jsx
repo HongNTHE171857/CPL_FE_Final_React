@@ -1,11 +1,15 @@
 import React from 'react';
+<<<<<<< Updated upstream
 import Header from './Header';
 import Footer from './Footer';
 export const Login_API = "https://api.realworld.io/api/users/login";
+=======
+>>>>>>> Stashed changes
 
 const SignUp = () => {
     return (
         <div>
+<<<<<<< Updated upstream
             <Header/>
             <div class="auth-page">
                 <div class="container page">
@@ -33,6 +37,9 @@ const SignUp = () => {
                                                 </div>
                                                 </div>
             <Footer/>                                   
+=======
+            SU
+>>>>>>> Stashed changes
         </div>
     );
 };

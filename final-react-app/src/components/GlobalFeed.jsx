@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Card, Col, Container, Nav, Row } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Col,
+  Container,
+  Nav,
+  Pagination,
+  Row,
+} from "react-bootstrap";
+import "../styles/GlobalFeed.css";
 export const Articles_API = "https://api.realworld.io/api/articles";
 
 const GlobalFeed = () => {
@@ -43,27 +52,16 @@ const GlobalFeed = () => {
     <Container>
       <Row>
         <Col md={9}>
-          {/* <div className="feed-toggle">
-            <Nav className="nav-pills outline-active">
-              <Nav.Item style={{ display: "none" }}>
-                <Nav.Link>Your Feed</Nav.Link>
-              </Nav.Item>
-
+          <div className="feed-toggle">
+            <Nav variant="pills" className="outline-active">
               <Nav.Item>
-                <Nav.Link>Global Feed</Nav.Link>
-              </Nav.Item>
-
-              <Nav.Item className="ng-hide">
-                <Nav.Link className="active">
-                  <i className="ion-pound"></i>
+                <Nav.Link href="" active>
+                  Global Feed
                 </Nav.Link>
               </Nav.Item>
             </Nav>
-          </div> */}
+          </div>
           <div>
-            <a>
-              {/* <img src="https://api.realworld.io/images/demo-avatar.png"/> */}
-            </a>
             {articles.map((article, index) => {
               return (
                 <div className="article-preview" key={index}>
@@ -72,31 +70,47 @@ const GlobalFeed = () => {
                       <img src={article.author.image} />
                     </a>
                     <div className="info">
-                      <a>{article.author.username}</a>
+                      <a className="author" href="">
+                        {article.author.username}
+                      </a>
                       <span className="date">
                         {formatDate(article.createdAt)}
                       </span>
                     </div>
-                    <button class="btn btn-outline-primary btn-sm pull-xs-right">
-                      <i class="ion-heart"></i> {article.favoritesCount}
-                    </button>
+                    <div className="pull-xs-right">
+                      <button class="btn btn-outline-primary btn-sm">
+                        <i class="fa-solid fa-heart"></i>{" "}
+                        {article.favoritesCount}
+                      </button>
+                    </div>
                   </div>
-                  <a
-                    href=""
-                    class="preview-link"
-                  >
-                    <h1>{article.title}</h1>
-                    <p>{article.description}</p>
-                    <span>Read more...</span>
-                    <ul class="tag-list">
-                      <li class="tag-default tag-pill tag-outline">
-                        {article.tagList.join(" ")}
-                      </li>
-                    </ul>
-                  </a>
+                  <div>
+                    <a href="" class="preview-link">
+                      <h1>{article.title}</h1>
+                      <p>{article.description}</p>
+                      <span>Read more...</span>
+                      <ul className="tag-list">
+                        {article.tagList.map((tag, index) => (
+                          <li
+                            key={index}
+                            className="tag-default tag-pill tag-outline"
+                          >
+                            {tag}
+                          </li>
+                        ))}
+                      </ul>
+                    </a>
+                  </div>
                 </div>
               );
             })}
+          </div>
+          <div>
+            <nav>
+              <Pagination>
+                <Pagination.Item active>1</Pagination.Item>
+              </Pagination>
+            </nav>
           </div>
         </Col>
         <Col md={3}>
@@ -110,7 +124,6 @@ const GlobalFeed = () => {
                   </div>
                 );
               })}
-              {/* <div className="post-preview">No tags are here... yet.</div> */}
             </Card.Body>
           </Card>
         </Col>
