@@ -7,7 +7,6 @@ export const Login_API = "https://api.realworld.io/api/users/login";
 const SignUp = () => {
   return (
     <div>
-      <Header />
       <div class="auth-page">
         <div class="container page">
           <div class="row">
@@ -53,7 +52,6 @@ const SignUp = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

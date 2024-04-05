@@ -4,7 +4,6 @@ import Footer from "./Footer";
 const SignIn = () => {
   return (
     <div>
-      <Header />
       <div class="auth-page">
         <div class="container page">
           <div class="row">
@@ -42,7 +41,6 @@ const SignIn = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };
