@@ -127,7 +127,7 @@ ul.tag-list li {
   color: #fff;
   font-size: 0.8rem;
   padding-top: 0.1rem;
-  padding-bottom: 0.1rem;
+  padding-bottom: 0.2rem;
   white-space: nowrap;
   margin-right: 3px;
   margin-bottom: 0.2rem;
@@ -147,4 +147,33 @@ ul.tag-list li {
   color: #aaaaaa;
   margin: 0px 3px 3.2px 0px;
   padding: 0px 7.68px;
+}
+
+.sidebar {
+    padding: 5px 10px 10px;
+    background-color: #f3f3f3;
+    border-radius: 4px;
+    border: none;
+    text-align: left;
+    color: #373a3c;
+}
+
+.sidebar .p {
+    margin-bottom: 0.2rem;
+}
+
+.sidebar .tag-list {
+    color: #373a3c;
+    display: inline;
+}
+
+.sidebar .tag-list a {
+    display: inline;
+    text-decoration: none;
+}
+
+.tag-pill {
+    padding-right: 0.6em;
+    padding-left: 0.6em;
+    border-radius:  10rem
 }

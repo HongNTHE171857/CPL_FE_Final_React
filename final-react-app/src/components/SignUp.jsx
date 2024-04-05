@@ -1,7 +1,4 @@
 import React from "react";
-
-import Header from "./Header";
-import Footer from "./Footer";
 export const Login_API = "https://api.realworld.io/api/users/login";
 
 const SignUp = () => {

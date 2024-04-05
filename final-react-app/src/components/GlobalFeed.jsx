@@ -116,11 +116,11 @@ const GlobalFeed = () => {
         <Col md={3}>
           <Card className="sidebar">
             <Card.Body>
-              <Card.Title>Popular Tags</Card.Title>
+              <Card.Title style={{color: "#373a3c", marginBottom: "0.5rem", fontWeight: "normal"}} className="p">Popular Tags</Card.Title>
               {tags.map((tag, index) => {
                 return (
                   <div className="tag-list">
-                    <a>{tag}</a>
+                    <a href="" className="tag-default tag-pill">{tag}</a>
                   </div>
                 );
               })}
