@@ -4,7 +4,7 @@ import React from 'react';
 
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import App from './components/App';
+import App from './App';
 import store from '../src/components/app/store';
 
 
