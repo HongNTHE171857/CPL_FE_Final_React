@@ -1,10 +1,7 @@
 import React from "react";
-
 import Header from "./Header";
 import Footer from "./Footer";
-export const Login_API = "https://api.realworld.io/api/users/login";
-
-const SignUp = () => {
+const SignIn = () => {
   return (
     <div>
       <Header />
@@ -12,20 +9,12 @@ const SignUp = () => {
         <div class="container page">
           <div class="row">
             <div class="col-md-6 offset-md-3 col-xs-12">
-              <h1 class="text-xs-center">Sign up</h1>
+              <h1 class="text-xs-center">Sign in</h1>
               <p class="text-xs-center">
-                <a href="/login">Have an account?</a>
+                <a href="/register">Need an account?</a>
               </p>
               <ul class="error-messages"></ul>
               <form>
-                <fieldset class="form-group">
-                  <input
-                    name="username"
-                    class="form-control form-control-lg"
-                    type="text"
-                    placeholder="Username"
-                  />
-                </fieldset>
                 <fieldset class="form-group">
                   <input
                     name="email"
@@ -46,7 +35,7 @@ const SignUp = () => {
                   type="submit"
                   class="btn btn-lg btn-primary pull-xs-right"
                 >
-                  Sign up
+                  Sign in
                 </button>
               </form>
             </div>
@@ -58,4 +47,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;
