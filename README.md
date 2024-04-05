@@ -5,3 +5,5 @@ Team members:
 2. Nguyen Phi Tuan Anh
 3. Nguyen Tien Hong
 4. Duong The Toan
+
+npm install
