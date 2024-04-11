@@ -9,6 +9,7 @@ import {
   Row,
 } from "react-bootstrap";
 import "../styles/GlobalFeed.css";
+import { Link } from "react-router-dom";
 export const Articles_API = "https://api.realworld.io/api/articles?limit=1000000";
 
 const GlobalFeed = () => {
@@ -120,7 +121,7 @@ const GlobalFeed = () => {
                   </div>
                 </div>
                 <div>
-                  <a href="" className="preview-link">
+                  <Link to={`/article/${article.slug}`} className="preview-link">
                     <h1>{article.title}</h1>
                     <p>{article.description}</p>
                     <span>Read more...</span>
@@ -134,7 +135,7 @@ const GlobalFeed = () => {
                         </li>
                       ))}
                     </ul>
-                  </a>
+                  </Link>
                 </div>
               </div>
             ))}
