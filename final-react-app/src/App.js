@@ -10,6 +10,8 @@ import SignUp from './components/SignUp';
 import Footer from './components/Footer';
 import Home from './components/Home';
 import DetailArticles from './components/DetailArticles';
+import Setting from './components/Settings';
+import NewArticle from './components/NewArticle';
 
 
 function App() {
@@ -22,6 +24,10 @@ function App() {
           <Route path='/login' element={<SignIn/>} />
           <Route path='/register' element={<SignUp/>} />
           <Route path='/article/:slug' element={<DetailArticles/>} />
+          <Route path='/login' element={<SignIn/>} />
+          <Route path='/register' element={<SignUp/>} />
+          <Route path='/settings' element={<Setting />} />
+          <Route path='/new-article' element={<NewArticle />} />
         </Routes>
         <Footer/>
       </Router>
