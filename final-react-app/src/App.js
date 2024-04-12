@@ -18,7 +18,6 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Header/>
         <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path='/login' element={<SignIn/>} />
@@ -29,7 +28,6 @@ function App() {
           <Route path='/settings' element={<Setting />} />
           <Route path='/new-article' element={<NewArticle />} />
         </Routes>
-        <Footer/>
       </Router>
     </div>
   );
