@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import agent from '../agent';
+import agent from '../../api';
 
 export const getProfile = createAsyncThunk(
   'profile/getProfile',
