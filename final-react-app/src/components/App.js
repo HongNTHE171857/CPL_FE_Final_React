@@ -2,9 +2,9 @@ import React, { lazy, Suspense, useEffect, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 
-import Home from './components/Home';
-import { appLoad, clearRedirect } from './components/reducers/common';
-import Header from './components/Header';
+import Home from './Home';
+import { appLoad, clearRedirect } from './reducers/common';
+import Header from './Header';
 
 function App() {
   const dispatch = useDispatch();
@@ -36,10 +36,10 @@ function App() {
             <Route path="/article/:slug" element={<Article />} />
             <Route path="/settings" element={<SettingsScreen />} />
             <Route
-              path="/@:username/favorites"
+              path="/:username/favorites"
               element={<Profile isFavoritePage />}
             />
-            <Route path="/@:username" element={<Profile />} />
+            <Route path="/:username" element={<Profile />} />
           </Routes>
         </Suspense>
       </>
