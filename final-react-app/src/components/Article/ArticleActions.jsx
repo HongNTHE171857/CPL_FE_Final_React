@@ -9,9 +9,6 @@ function ArticleActions() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  /**
-   * @type {React.MouseEventHandler}
-   */
   const removeArticle = () => {
     dispatch(deleteArticle(slug));
     navigate('/');
