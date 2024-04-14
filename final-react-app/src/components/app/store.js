@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit';
-// import { connectRouter, routerMiddleware } from 'connected-react-router';
 
 import authReducer from '../features/auth/authSlice';
 import commentsReducer from '../features/comments/commentsSlice';
@@ -21,13 +20,11 @@ export function makeStore(preloadedState) {
       common: commonReducer,
       profile: profileReducer,
       tags: tagsReducer,
-      // router: connectRouter(history),
     },
     devTools: true,
     preloadedState,
     middleware: (getDefaultMiddleware) => [
       ...getDefaultMiddleware(),
-      // routerMiddleware(history),
       localStorageMiddleware,
     ],
   });
