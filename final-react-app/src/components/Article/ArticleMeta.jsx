@@ -5,12 +5,6 @@ import { selectUser } from '../features/auth/authSlice';
 
 import ArticleActions from './ArticleActions';
 
-/**
- * Show information about the current article
- *
- * @example
- * <ArticleMeta />
- */
 function ArticleMeta() {
   const currentUser = useSelector(selectUser);
   const article = useSelector((state) => state.article.article);

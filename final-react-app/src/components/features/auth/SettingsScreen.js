@@ -23,44 +23,26 @@ function SettingsForm({ currentUser, onSaveSettings }) {
   const [password, setPassword] = useState('');
   const isLoading = useSelector(selectIsLoading);
 
-  /**
-   * @type {React.ChangeEventHandler<HTMLInputElement>}
-   */
   const changeImage = (event) => {
     setImage(event.target.value);
   };
 
-  /**
-   * @type {React.ChangeEventHandler<HTMLInputElement>}
-   */
   const changeUsername = (event) => {
     setUsername(event.target.value);
   };
 
-  /**
-   * @type {React.ChangeEventHandler<HTMLInputElement>}
-   */
   const changeBio = (event) => {
     setBio(event.target.value);
   };
 
-  /**
-   * @type {React.ChangeEventHandler<HTMLInputElement>}
-   */
   const changeEmail = (event) => {
     setEmail(event.target.value);
   };
 
-  /**
-   * @type {React.ChangeEventHandler<HTMLInputElement>}
-   */
   const changePassword = (event) => {
     setPassword(event.target.value);
   };
 
-  /**
-   * @type {React.FormEventHandler<HTMLFormElement>}
-   */
   const saveSettings = (event) => {
     event.preventDefault();
 
