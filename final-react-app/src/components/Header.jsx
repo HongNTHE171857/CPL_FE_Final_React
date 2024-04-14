@@ -31,6 +31,9 @@ const Header = () => {
           <Nav className="ml-auto">
             {isLoggedIn ? (
               <>
+                <Nav.Link as={NavLink} to="/" className="active">
+                  Home
+                </Nav.Link>
                 <Nav.Link as={NavLink} to="/new-article">
                   New Article
                 </Nav.Link>
