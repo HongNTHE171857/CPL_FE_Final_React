@@ -2,9 +2,25 @@ import React, { lazy, Suspense, useEffect, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 
-import Home from './Home';
+import Home from '../components/Home';
 import { appLoad, clearRedirect } from './reducers/common';
 import Header from './Header';
+
+const Article = lazy(() =>
+  import('../components/Article')
+);
+const Editor = lazy(() =>
+  import('../components/Editor')
+);
+const AuthScreen = lazy(() =>
+  import('./features/auth/AuthScreen')
+);
+const Profile = lazy(() =>
+  import('../components/Profile')
+);
+const SettingsScreen = lazy(() =>
+  import('./features/auth/SettingsScreen')
+);
 
 function App() {
   const dispatch = useDispatch();

@@ -1,9 +1,21 @@
-import {createAsyncThunk, createSelector, createSlice} from '@reduxjs/toolkit';
+import {
+  createAsyncThunk,
+  createSelector,
+  createSlice,
+} from '@reduxjs/toolkit';
+
 import agent from '../../../api';
-import {failureReducer, isApiError, loadingReducer, Status,} from '../../common/utils';
+import {
+  failureReducer,
+  isApiError,
+  loadingReducer,
+  Status,
+} from '../../common/utils';
 
 
-export const register = createAsyncThunk('auth/register', async ({ username, email, password }, thunkApi) => {
+export const register = createAsyncThunk(
+  'auth/register',
+  async ({ username, email, password }, thunkApi) => {
     try {
       const {
         user: { token, ...user },

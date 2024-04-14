@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-import agent from '../agent';
+import agent from '../../api';
 
 function serializeError(error) {
   if (error instanceof Error) {
