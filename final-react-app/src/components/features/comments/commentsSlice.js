@@ -3,11 +3,19 @@ import {
   createEntityAdapter,
   createSelector,
   createSlice,
-} from '@reduxjs/toolkit';
+} from "@reduxjs/toolkit";
 
-import agent from '../../../api';
-import { isApiError, loadingReducer, Status } from '../../common/utils';
-import { selectIsAuthenticated, selectUser } from '../auth/authSlice';
+import agent from "../../../api";
+import { isApiError, loadingReducer, Status } from "../../common/utils";
+import { selectIsAuthenticated, selectUser } from "../auth/authSlice";
+
+/**
+ * @typedef  {object}   CommentsState
+ * @property {Status}   status
+ * @property {number[]} ids
+ * @property {Record<string, import('../../agent').Comment>} entities
+ * @property {Record<string, string[]>} errors
+ */
 
 /**
  * @typedef  {object}   CommentsState
@@ -30,12 +38,13 @@ const commentAdapter = createEntityAdapter({
  * @param {string} argument.comment.body
  */
 export const createComment = createAsyncThunk(
-  'comments/createComment',
-  async ({ articleSlug, comment: newComment }, thunkApi) => {
+  "comments/createComment",
+  async ({ articleSlug, comment }, thunkApi) => {
     try {
-      const { comment } = await agent.Comments.create(articleSlug, newComment);
+      console.log("vao day");
+      const { newComment } = await agent.Comments.create(articleSlug, comment);
 
-      return comment;
+      return newComment;
     } catch (error) {
       if (isApiError(error)) {
         return thunkApi.rejectWithValue(error);
@@ -57,7 +66,7 @@ export const createComment = createAsyncThunk(
  * @param {string} articleSlug
  */
 export const getCommentsForArticle = createAsyncThunk(
-  'comments/getCommentsForArticle',
+  "comments/getCommentsForArticle",
   async (articleSlug) => {
     const { comments } = await agent.Comments.forArticle(articleSlug);
 
@@ -76,7 +85,7 @@ export const getCommentsForArticle = createAsyncThunk(
  * @param {number} argument.commentId
  */
 export const removeComment = createAsyncThunk(
-  'comments/removeComment',
+  "comments/removeComment",
   async ({ articleSlug, commentId }) => {
     await agent.Comments.delete(articleSlug, commentId);
   },
@@ -96,7 +105,7 @@ const initialState = commentAdapter.getInitialState({
 });
 
 const commentsSlice = createSlice({
-  name: 'comments',
+  name: "comments",
   initialState,
   reducers: {},
   extraReducers(builder) {

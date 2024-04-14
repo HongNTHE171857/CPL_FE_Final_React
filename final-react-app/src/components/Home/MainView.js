@@ -1,29 +1,35 @@
-import React, { memo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { memo, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import ArticleList from '../ArticleList';
-import { changeTab } from '../reducers/articleList';
-import { selectIsAuthenticated } from '../features/auth/authSlice';
+import ArticleList from "../ArticleList";
+import {
+  changeTab,
+  getAllArticles,
+  getArticlesByAuthor,
+} from "../reducers/articleList";
+import { selectIsAuthenticated, selectUser } from "../features/auth/authSlice";
+import store from "../app/store";
+import ArticleAuthor from "../ArticleAuthor";
 
-function YourFeedTab() {
+function YourFeedTab({ setConfirm }) {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const currentTab = useSelector((state) => state.articleList.tab);
-  const isActiveTab = currentTab === 'feed';
-
+  const isActiveTab = currentTab;
   if (!isAuthenticated) {
     return null;
   }
 
   const dispatchChangeTab = () => {
-    dispatch(changeTab('feed'));
+    // dispatch(changeTab("feed"));
+    setConfirm(true);
   };
 
   return (
     <li className="nav-item">
       <button
         type="button"
-        className={isActiveTab ? 'nav-link active' : 'nav-link'}
+        className={isActiveTab ? "nav-link active" : "nav-link"}
         onClick={dispatchChangeTab}
       >
         Your Feed
@@ -32,20 +38,21 @@ function YourFeedTab() {
   );
 }
 
-function GlobalFeedTab() {
+function GlobalFeedTab({ setConfirm }) {
   const dispatch = useDispatch();
   const currentTab = useSelector((state) => state.articleList.tab);
-  const isActiveTab = currentTab === 'all';
+  const isActiveTab = currentTab === "all";
 
   const dispatchChangeTab = () => {
-    dispatch(changeTab('all'));
+    dispatch(changeTab("all"));
+    console.log(setConfirm(false));
   };
 
   return (
     <li className="nav-item">
       <button
         type="button"
-        className={isActiveTab ? 'nav-link active' : 'nav-link'}
+        className={isActiveTab ? "nav-link active" : "nav-link"}
         onClick={dispatchChangeTab}
       >
         Global Feed
@@ -63,7 +70,7 @@ function TagFilterTab() {
 
   return (
     <li className="nav-item">
-      <button type="button" className="nav-link active">
+      <button type="button" className={isActiveTab ? "nav-link active" : "nav-link"}>
         <i className="ion-pound" /> {tag}
       </button>
     </li>
@@ -71,19 +78,21 @@ function TagFilterTab() {
 }
 
 function MainView() {
+  const [confirm, setConfirm] = useState(true);
+  console.log(confirm);
   return (
     <div className="col-md-9">
       <div className="feed-toggle">
         <ul className="nav nav-pills outline-active">
-          <YourFeedTab />
+          <YourFeedTab setConfirm={setConfirm} />
 
-          <GlobalFeedTab />
+          <GlobalFeedTab setConfirm={setConfirm} />
 
           <TagFilterTab />
         </ul>
       </div>
 
-      <ArticleList />
+      {confirm ? <ArticleAuthor /> : <ArticleList />}
     </div>
   );
 }

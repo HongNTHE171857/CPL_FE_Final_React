@@ -1,22 +1,23 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import agent from '../../api';
-import { profilePageUnloaded } from './profile';
+import agent from "../../api";
+import { profilePageUnloaded } from "./profile";
 
 export const changeTab = (tab) => (dispatch) => {
   dispatch(articleListSlice.actions.changeTab(tab));
+
   return dispatch(getAllArticles());
 };
 
 export const getArticlesByAuthor = createAsyncThunk(
-  'articleList/getArticlesByAuthor',
+  "articleList/getArticlesByAuthor",
   ({ author, page } = {}) => agent.Articles.byAuthor(author, page)
 );
 
 export const getAllArticles = createAsyncThunk(
-  'articleList/getAll',
+  "articleList/getAll",
   ({ page, author, tag, favorited } = {}, thunkApi) =>
-    thunkApi.getState().articleList.tab === 'feed'
+    thunkApi.getState().articleList.tab === "feed"
       ? agent.Articles.feed(page)
       : agent.Articles.all({
           page: page ?? thunkApi.getState().articleList.currentPage,
@@ -28,22 +29,22 @@ export const getAllArticles = createAsyncThunk(
 );
 
 export const getArticlesByTag = createAsyncThunk(
-  'articleList/getArticlesByTag',
+  "articleList/getArticlesByTag",
   ({ tag, page } = {}) => agent.Articles.byTag(tag, page)
 );
 
 export const getFavoriteArticles = createAsyncThunk(
-  'articleList/getFavoriteArticles',
+  "articleList/getFavoriteArticles",
   ({ username, page } = {}) => agent.Articles.favoritedBy(username, page)
 );
 
 export const favoriteArticle = createAsyncThunk(
-  'articleList/favoriteArticle',
+  "articleList/favoriteArticle",
   agent.Articles.favorite
 );
 
 export const unfavoriteArticle = createAsyncThunk(
-  'articleList/unfavoriteArticle',
+  "articleList/unfavoriteArticle",
   agent.Articles.unfavorite
 );
 
@@ -59,7 +60,7 @@ const initialState = {
 };
 
 const articleListSlice = createSlice({
-  name: 'articleList',
+  name: "articleList",
   initialState,
   reducers: {
     homePageUnloaded: () => initialState,
