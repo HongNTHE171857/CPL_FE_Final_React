@@ -1,18 +1,18 @@
-import React, { memo, useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import ArticleList from './ArticleList';
+import React, { memo, useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import ArticleList from "./ArticleList";
 import {
   getArticlesByAuthor,
   getFavoriteArticles,
-} from './reducers/articleList';
+} from "./reducers/articleList";
 import {
   follow,
   unfollow,
   getProfile,
   profilePageUnloaded,
-} from './reducers/profile';
-import { selectUser } from './features/auth/authSlice';
+} from "./reducers/profile";
+import { selectUser } from "./features/auth/authSlice";
 
 function EditProfileSettings() {
   return (
@@ -29,14 +29,14 @@ function FollowUserButton({ username, following }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentUser = useSelector(selectUser);
-  let classes = 'btn btn-sm action-btn';
+  let classes = "btn btn-sm action-btn";
   let textMessage;
 
   if (following) {
-    classes += ' btn-secondary';
+    classes += " btn-secondary";
     textMessage = `Unfollow ${username}`;
   } else {
-    classes += ' btn-outline-secondary';
+    classes += " btn-outline-secondary";
     textMessage = `Follow ${username}`;
   }
 
@@ -74,7 +74,7 @@ function UserInfo({ profile }) {
             <img
               src={
                 profile.image ||
-                'https://static.productionready.io/images/smiley-cyrus.jpg'
+                "https://static.productionready.io/images/smiley-cyrus.jpg"
               }
               className="user-img"
               alt={profile.username}
@@ -103,7 +103,7 @@ function ProfileTabs({ username, isFavorites }) {
       <ul className="nav nav-pills outline-active">
         <li className="nav-item">
           <Link
-            className={isFavorites ? 'nav-link' : 'nav-link active'}
+            className={isFavorites ? "nav-link" : "nav-link active"}
             to={`/${username}`}
           >
             My Articles
@@ -112,7 +112,7 @@ function ProfileTabs({ username, isFavorites }) {
 
         <li className="nav-item">
           <Link
-            className={isFavorites ? 'nav-link active' : 'nav-link'}
+            className={isFavorites ? "nav-link active" : "nav-link"}
             to={`/${username}/favorites`}
           >
             Favorited Articles

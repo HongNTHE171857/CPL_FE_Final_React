@@ -1,8 +1,10 @@
-import React, { memo } from 'react';
-import { useSelector } from 'react-redux';
+import React, { memo, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import ArticlePreview from './ArticlePreview';
-import ListPagination from './ListPagination';
+import ArticlePreview from "./ArticlePreview";
+import ListPagination from "./ListPagination";
+import { getArticlesByAuthor } from "./reducers/articleList";
+import { selectUser } from "./features/auth/authSlice";
 
 function ArticleList() {
   const articles = useSelector((state) => state.articleList.articles);
