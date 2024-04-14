@@ -2,7 +2,7 @@ import React, { lazy, Suspense, useEffect, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 
-import Home from '../components/Home';
+import Home from '../components/Home/index';
 import { appLoad, clearRedirect } from './reducers/common';
 import Header from './Header';
 
