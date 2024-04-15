@@ -1,5 +1,4 @@
 import React from "react";
-import { NavLink } from 'react-router-dom';
 import Banner from "./Banner";
 import GlobalFeed from "./GlobalFeed";
 import Header from "./Header";
@@ -10,7 +9,6 @@ const Home = () => {
     <div>
       <Header/>
       <Banner />
-      <NavLink to="/your-feed">Your Feed</NavLink>
       <GlobalFeed />
       <Footer/>
     </div>

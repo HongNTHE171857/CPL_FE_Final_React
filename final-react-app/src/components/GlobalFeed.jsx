@@ -142,7 +142,7 @@ const GlobalFeed = () => {
               {isLoggedIn ? (
                 <Nav.Item>
                   <Nav.Link
-                    onClick={() => handleFeedTypeChange("your")}
+                    href="/your-feed"
                     className={feedType === "your" ? "active" : ""}
                   >
                     Your Feed
