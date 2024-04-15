@@ -31,8 +31,6 @@ const YourFeed = () => {
 
   return (
     <div>
-      <Header/>
-      <Banner/>
       {loading ? (
         <div style={{ textAlign: "center" }}>Loading Articles...</div>
       ) : articleList.length === 0 ? (
