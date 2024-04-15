@@ -2,7 +2,6 @@ import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import style from "../styles/Header.module.css";
-import { useNavigate } from 'react-router-dom';
 import  { useEffect, useState } from 'react';
 
 const Header = () => {
