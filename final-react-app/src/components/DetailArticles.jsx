@@ -13,6 +13,7 @@ const DetailArticles = () => {
   const [comments, setComments] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(Boolean(localStorage.getItem("user")));
   const [token, setToken] = useState(localStorage.getItem("token"));
+  const [favorited, setFavorited] = useState(false);
 
   useEffect(() => {
     const fetchArticle = async () => {
@@ -22,6 +23,7 @@ const DetailArticles = () => {
         );
         const data = await response.json();
         setArticle(data.article);
+        setFavorited(data.article.favorited);
         fetchComments();
         fetchFollowing();
       } catch (error) {
@@ -61,6 +63,41 @@ const DetailArticles = () => {
       setFollowing(!following);
     })
     .catch((error) => console.log(error));
+  };
+
+  const handleFavorite = async () => {
+    const userToken = localStorage.getItem("token");
+    if (!userToken) {
+
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `https://api.realworld.io/api/articles/${slug}/favorite`,
+        {
+          method: favorited ? "DELETE" : "POST", 
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${userToken}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to favorite article");
+      }
+
+      setFavorited(!favorited);
+      setArticle((prevArticle) => ({
+        ...prevArticle,
+        favoritesCount: favorited
+          ? prevArticle.favoritesCount - 1
+          : prevArticle.favoritesCount + 1,
+      }));
+    } catch (error) {
+      console.error("Error favoriting article:", error);
+    }
   };
 
   useEffect(() => {
@@ -166,9 +203,8 @@ const DetailArticles = () => {
                 <i className="fa-solid fa-plus"></i>&nbsp; {following ? 'Unfollow' : 'Follow'} {article.author.username}
               </button>
               &nbsp;
-              <button className="btn btn-sm btn-primary">
-                <i className="fa-solid fa-heart"></i> Unfavorite Article{" "}
-                <span className="counter">{"(" + article.favoritesCount + ")"}</span>
+              <button className="btn btn-sm btn-primary" onClick={handleFavorite}>
+                <i className="fa-solid fa-heart"></i> {favorited ? 'Unfavorite Article' : 'Favorite Article'} <span className="counter">{"(" + article.favoritesCount + ")"}</span>
               </button>
             </div>
           </Container>

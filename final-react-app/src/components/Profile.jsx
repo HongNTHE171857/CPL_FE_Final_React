@@ -24,6 +24,7 @@ const Profile = () => {
         setArticles(data.articles);
       })
       .catch((error) => console.log(error));
+
     const userToken = localStorage.getItem("token");
     if (userToken) {
       fetch(`https://api.realworld.io/api/profiles/${username}`, {
@@ -59,6 +60,49 @@ const Profile = () => {
     }
   };
 
+  const handleFavorite = async (slug) => {
+    const userToken = localStorage.getItem("token");
+    if (!userToken) {
+      // Xử lý khi người dùng chưa đăng nhập
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `https://api.realworld.io/api/articles/${slug}/favorite`,
+        {
+          method: "POST", // Thực hiện yêu cầu favorite
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${userToken}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to favorite article");
+      }
+
+      // Cập nhật trạng thái favorited của bài viết
+      setArticles((prevArticles) =>
+        prevArticles.map((article) => {
+          if (article.slug === slug) {
+            return {
+              ...article,
+              favorited: !article.favorited, // Đảo ngược trạng thái favorite
+              favoritesCount: article.favorited
+                ? article.favoritesCount - 1
+                : article.favoritesCount + 1, // Cập nhật số lượng favoritesCount
+            };
+          }
+          return article;
+        })
+      );
+    } catch (error) {
+      console.error("Error favoriting article:", error);
+    }
+  };
+
   return (
     <div>
       <Header />
@@ -75,9 +119,13 @@ const Profile = () => {
                   />
                   <h4>{profile.username}</h4>
                   <p>{profile.bio}</p>
-                  <button className="btn btn-sm action-btn btn-secondary" onClick={handleFollow}>
-                  <i className="fa-solid fa-plus"></i> {following ? 'Unfollow' : 'Follow'} {profile.username}
-                  </button>
+                  <Button
+                    className="btn btn-sm action-btn btn-secondary"
+                    onClick={handleFollow}
+                  >
+                    <i className="fa-solid fa-plus"></i>{" "}
+                    {following ? "Unfollow" : "Follow"} {profile.username}
+                  </Button>
                 </Col>
               </Row>
             </Container>
@@ -117,8 +165,10 @@ const Profile = () => {
                         variant="primary"
                         size="sm"
                         className="pull-xs-right"
+                        onClick={() => handleFavorite(article.slug)} // Gọi hàm handleFavorite khi nhấn nút favorite
                       >
-                        <i className="fa-solid fa-heart"></i> {article.favoritesCount}
+                        <i className="fa-solid fa-heart"></i>{" "}
+                        {article.favoritesCount}
                       </Button>
                     </div>
                     <Link
