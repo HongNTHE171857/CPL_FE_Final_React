@@ -50,41 +50,64 @@ const GlobalFeed = () => {
     setCurrentPage(1);
   };
 
-  const handleFeedTypeChange = (type) => {
+  const handleFeedTypeChange = async (type) => {
     if (type === "global") {
       setFeedType("global");
       setFilterActive(false);
       setSelectedTag(null);
       setCurrentPage(1);
+      fetchArticles();
     } else {
-      const handleFeedTypeChange = async (type) => {
-        if (type === "global") {
-          setFeedType("global");
-          setFilterActive(false);
-          setSelectedTag(null);
-          setCurrentPage(1);
-          fetchArticles();
-        } else {
-          setFeedType("your");
-          setFilterActive(false);
-          setSelectedTag(null);
-          setCurrentPage(1);
-          try {
-            const userToken = localStorage.getItem('token');
-            const response = await fetch("https://api.realworld.io/api/articles/feed", {
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Token ${userToken}`
-              }
-            });
-            const data = await response.json();
-            setArticles(data.articles);
-          } catch (error) {
-            console.error("Error fetching your feed:", error);
+      setFeedType("your");
+      setFilterActive(false);
+      setSelectedTag(null);
+      setCurrentPage(1);
+      try {
+        const userToken = localStorage.getItem('token');
+        const response = await fetch("https://api.realworld.io/api/articles/feed", {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${userToken}`
           }
+        });
+        const data = await response.json();
+        setArticles(data.articles);
+      } catch (error) {
+        console.error("Error fetching your feed:", error);
+      }
+    }
+  };
+
+  const handleFavorite = async (slug) => {
+    const userToken = localStorage.getItem('token');
+    if (!userToken) {
+      // Xử lý khi người dùng chưa đăng nhập
+      return;
+    }
+  
+    try {
+      const response = await fetch(`https://api.realworld.io/api/articles/${slug}/favorite`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Token ${userToken}`
         }
-      };
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to favorite article');
+      }
+  
+      // Cập nhật trạng thái favorited của bài viết
+      setArticles(prevArticles => prevArticles.map(article => {
+        if (article.slug === slug) {
+          return { ...article, favorited: true, favoritesCount: article.favoritesCount + 1 };
+        }
+        return article;
+      }));
+    } catch (error) {
+      console.error('Error favoriting article:', error);
     }
   };
 
@@ -151,7 +174,7 @@ const GlobalFeed = () => {
                     </span>
                   </div>
                   <div className="pull-xs-right">
-                    <button className="btn btn-outline-primary btn-sm">
+                    <button className="btn btn-outline-primary btn-sm" onClick={() => handleFavorite(article.slug)}>
                       <i className="fa-solid fa-heart"></i>{" "}
                       {article.favoritesCount}
                     </button>
