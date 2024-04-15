@@ -3,7 +3,8 @@ import API from "./API";
 import { useNavigate } from "react-router-dom";
 import Header from './Header';
 import Footer from './Footer';
-import './YourFeed.css'; // Import CSS file
+import Banner from './Banner';
+import '../styles/YourFeed.css'; // Import CSS file
 
 const YourFeed = () => {
   const nav = useNavigate();
@@ -60,6 +61,7 @@ const YourFeed = () => {
       <Header user={user} />
 
       <div>
+        <Banner/>
         {loading ? (
           <div style={{ textAlign: "center" }}>Loading Articles...</div>
         ) : articleList.length === 0 ? (
