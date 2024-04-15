@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import API from "./API";
 import { useNavigate } from "react-router-dom";
+import Header from "./Header";
+import Banner from "./Banner";
 
 const YourFeed = () => {
   const nav = useNavigate();
@@ -29,6 +31,8 @@ const YourFeed = () => {
 
   return (
     <div>
+      <Header/>
+      <Banner/>
       {loading ? (
         <div style={{ textAlign: "center" }}>Loading Articles...</div>
       ) : articleList.length === 0 ? (
