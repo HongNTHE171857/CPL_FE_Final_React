@@ -70,7 +70,7 @@ function TagFilterTab() {
 
   return (
     <li className="nav-item">
-      <button type="button" className={isActiveTab ? "nav-link active" : "nav-link"}>
+      <button type="button" className="nav-link active">
         <i className="ion-pound" /> {tag}
       </button>
     </li>
