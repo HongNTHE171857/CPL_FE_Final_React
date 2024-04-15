@@ -1,0 +1,36 @@
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.logo-font {
+  vertical-align: middle;
+  font-size: 18px;
+  font-family: "Titillium Web";
+  color: #5cb85c;
+  grid-area: auto;
+  line-height: 36px;
+  padding: 0px 0px 4px;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.attribution {
+  vertical-align: middle;
+  margin-left: 10px;
+  font-size: 0.8rem;
+  color: #bbb;
+  font-weight: 300;
+}
+
+.footer {
+  background: #f3f3f3;
+  margin-top: 3rem;
+  padding: 1rem 0;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  text-align: left;
+}
