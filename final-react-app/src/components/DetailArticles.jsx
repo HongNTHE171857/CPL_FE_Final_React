@@ -8,6 +8,7 @@ import Footer from "./Footer";
 const DetailArticles = () => {
   const { slug } = useParams();
   const [article, setArticle] = useState(null);
+  const [following, setFollowing] = useState(false);
 
   useEffect(() => {
     const fetchArticle = async () => {
@@ -23,7 +24,45 @@ const DetailArticles = () => {
     };
 
     fetchArticle();
-  }, [slug]);
+
+    const userToken = localStorage.getItem('token');
+    if (userToken) {
+      fetch(`https://api.realworld.io/api/profiles/${article?.author.username}/follow`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Token ${userToken}`
+        }
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        setFollowing(data.profile.following);
+      })
+      .catch((error) => console.log(error));
+    }
+  }, [slug, article]);
+
+  const handleFollow = () => {
+    const userToken = localStorage.getItem('token');
+    if (userToken) {
+      fetch(`https://api.realworld.io/api/profiles/${article?.author.username}/follow`, {
+        method: following ? 'DELETE' : 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Token ${userToken}`
+        }
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        setFollowing(!following); // Đảo ngược trạng thái follow/unfollow
+      })
+      .catch((error) => console.log(error));
+    }
+  };
+
+  if (!article || !article.author) {
+    return <div>Loading...</div>;
+  }
 
   if (!article) {
     return <div>Loading...</div>;
@@ -36,7 +75,7 @@ const DetailArticles = () => {
 
   return (
     <div>
-      <Header/>
+      <Header />
       <div className="article-page">
         <div className="banner">
           <Container>
@@ -51,7 +90,14 @@ const DetailArticles = () => {
                 </a>
                 <span className="date">{formatDate(article.createdAt)}</span>
               </div>
-              <span>{article.favoritesCount}</span>
+              <button class="btn btn-sm action-btn btn-secondary" onClick={handleFollow}>
+                <i class="fa-solid fa-plus"></i>&nbsp; {following ? 'Unfollow' : 'Follow'} {article.author.username}
+              </button>
+              &nbsp;
+              <button class="btn btn-sm btn-primary">
+              <i className="fa-solid fa-heart"></i> Unfavorite Article{" "}
+                <span class="counter">{"(" + article.favoritesCount + ")"}</span>
+              </button>
             </div>
           </Container>
         </div>
@@ -89,7 +135,7 @@ const DetailArticles = () => {
           </Row>
         </Container>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

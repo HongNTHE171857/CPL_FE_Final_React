@@ -2,16 +2,14 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
-// import Banner from './components/Banner';
-// import GlobalFeed from './components/GlobalFeed';
-import Footer from './components/Footer';
 import Home from './components/Home';
 import DetailArticles from './components/DetailArticles';
 import Setting from './components/Settings';
 import NewArticle from './components/NewArticle';
+import Profile from './components/Profile';
+import YourFeed from './components/YourFeed';
 
 
 function App() {
@@ -25,6 +23,8 @@ function App() {
           <Route path='/register' element={<SignUp/>} />
           <Route path='/settings' element={<Setting />} />
           <Route path='/new-article' element={<NewArticle />} />
+          <Route path="/profile/:username" element={<Profile/>} />
+          <Route path='/your-feed' element={<YourFeed/>} />
         </Routes>
       </Router>
     </div>

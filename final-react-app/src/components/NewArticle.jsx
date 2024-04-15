@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 
-const NewArticle = () => {
+const NewArticle = ({ updateArticles }) => {
     // Khởi tạo state cho các trường dữ liệu và thông báo
     const [articleTitle, setArticleTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -11,6 +11,7 @@ const NewArticle = () => {
     const [notification, setNotification] = useState('');
     const [error, setError] = useState('');
     const [user, setUser] = useState(null); // Thêm state để lưu thông tin người dùng
+    const [articles, setArticles] = useState([]);
 
     useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -63,6 +64,8 @@ const publishArticle = async () => {
 
         const data = await response.json();
 
+        setArticles([...articles, data.article]);
+
         if (response.ok) {
             setNotification('Article published successfully!');
             setError('');
@@ -71,6 +74,7 @@ const publishArticle = async () => {
             setDescription('');
             setBody('');
             setTags('');
+            updateArticles();
         } else {
             setError('Failed to publish article. Please try again.');
             setNotification('');
