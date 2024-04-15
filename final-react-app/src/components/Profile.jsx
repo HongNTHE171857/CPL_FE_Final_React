@@ -26,7 +26,7 @@ const Profile = () => {
       .catch((error) => console.log(error));
     const userToken = localStorage.getItem("token");
     if (userToken) {
-      fetch(`https://api.realworld.io/api/profiles/${username}/follow`, {
+      fetch(`https://api.realworld.io/api/profiles/${username}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -76,7 +76,7 @@ const Profile = () => {
                   <h4>{profile.username}</h4>
                   <p>{profile.bio}</p>
                   <button className="btn btn-sm action-btn btn-secondary" onClick={handleFollow}>
-                  <i class="fa-solid fa-plus"></i> {following ? 'Unfollow' : 'Follow'} {profile.username}
+                  <i className="fa-solid fa-plus"></i> {following ? 'Unfollow' : 'Follow'} {profile.username}
                   </button>
                 </Col>
               </Row>
