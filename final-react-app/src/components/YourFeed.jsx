@@ -1,87 +1,90 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Nav, Button } from "react-bootstrap";
+import API from "./API";
+import { useNavigate } from "react-router-dom";
 
 const YourFeed = () => {
-  const [followingAuthors, setFollowingAuthors] = useState([]);
-  const [article, setArticle] = useState([]);
+  const nav = useNavigate();
+  const [articleList, setArticleList] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchFollowingAuthors = async () => {
-      try {
-        // Thực hiện yêu cầu API để lấy danh sách tác giả được theo dõi
-        const response = await fetch(
-          "https://api.realworld.io/api/profiles/{username}"
-        );
-        const data = await response.json();
-        // Lấy danh sách tác giả được theo dõi từ dữ liệu phản hồi
-        setFollowingAuthors(data.profile.following);
-      } catch (error) {
-        console.error("Error fetching following authors:", error);
-      }
-    };
+    const token = localStorage.getItem("token");
+    if (token) {
+      API.getArticlesOfFollowed(1, 100, token)
+        .then((data) => {
+          setArticleList(data.articles);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error fetching articles:", error);
+          setLoading(false);
+        });
+    } else {
+      setLoading(false);
+      nav("/signup");
+    }
+  }, [nav]);
 
-    fetchFollowingAuthors();
-  }, []);
+ 
 
   return (
-    <Container className="page">
-      <Row>
-        <Col md={9}>
-          <div className="feed-toggle">
-            <Nav variant="pills" className="outline-active">
-              <Nav.Item>
-                <Nav.Link href="" className="active">
-                  Your Feed
-                </Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link href="">Global Feed</Nav.Link>
-              </Nav.Item>
-            </Nav>
-          </div>
-          {followingAuthors.map((author, index) => (
-            <div className="article-preview" key={index}>
-              <div className="article-meta">
-                <a href={`/profile/${author.username}`}>
-                  <img
-                    decoding="sync"
-                    src={author.image}
-                    alt="author avater"
-                  />
-                </a>
-                <div className="info">
-                  <a className="author" href={`/profile/${author.username}`}>
-                    {author.username}
+    <div>
+      {loading ? (
+        <div style={{ textAlign: "center" }}>Loading Articles...</div>
+      ) : articleList.length === 0 ? (
+        <div>No articles available</div>
+      ) : (
+        articleList.map((a) => (
+          <div key={a.slug}>
+           <div className="article-preview">
+                  <div className="article-meta d-flex justify-content-between">
+                    <div className="d-flex gap-2 ">
+                      <a
+                        className="d-flex flex-column justify-content-center avatar"
+                        href={`/profile/${a.author.username}`}
+                      >
+                        <img
+                          decoding="sync"
+                          src={`${a.author.image}`}
+                          alt="author avater"
+                        />
+                      </a>
+                      <div className="info d-flex flex-column ">
+                        <a
+                          className="author"
+                          href={`/profile/${a.author.username}`}
+                        >
+                          {a.author.username}
+                        </a>
+                        <span className="date">January 4, 2024</span>
+                      </div>
+                    </div>
+                    <div className={`h-25 like-btn__container`}>
+                     
+                    </div>
+                  </div>
+                  <a className="preview-link" href={`/article/${a.slug}`}>
+                    <h1>{a.title}</h1>
+                    <p>{a.description}</p>
+<span>Read more...</span>
+                    <ul className="tag-list">
+                      {a.tagList.map((t, i) => {
+                        return (
+                          <li
+                            key={i}
+                            className="tag-default tag-pill tag-outline"
+                          >
+                            {t}
+                          </li>
+                        );
+                      })}
+                    </ul>
                   </a>
-                  <span className="date">Date</span> {/* Replace with actual date */}
                 </div>
-                <Button variant="primary" size="sm" className="pull-xs-right">
-                  <i className="ion-heart"></i> Likes {/* Replace with actual likes count */}
-                </Button>
-              </div>
-              <a
-                className="preview-link"
-                href={`/article/${article.slug}`}
-              >
-                <h1>{article.title}</h1> {/* Replace with actual title */}
-                <p>{article.description}</p> {/* Replace with actual description */}
-                <span>Read more...</span>
-                <ul className="tag-list">
-                  {article.tagList.map((tag, index) => (
-                    <li
-                      key={index}
-                      className="tag-default tag-pill tag-outline"
-                    >
-                      {tag}
-                    </li>
-                  ))}
-                </ul>
-              </a>
-            </div>
-          ))}
-        </Col>
-      </Row>
-    </Container>
+          </div>
+        ))
+      )}
+    </div>
   );
 };
 
