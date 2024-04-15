@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Col, Container, Nav, Row } from "react-bootstrap";
 import Header from "./Header";
 import Footer from "./Footer";
+import "../styles/GlobalFeed.css";
 import { Link, useParams } from "react-router-dom";
 
 const Profile = () => {
